@@ -1,3 +1,23 @@
-/**
-  @author
- */
+-- ALTER TABLE
+ALTER TABLE Airport ADD COLUMN latitude DECIMAL(10, 8);
+ALTER TABLE Airport ADD COLUMN longitude DECIMAL(11, 8);
+
+ALTER TABLE Airline ADD CONSTRAINT unique_airline_name UNIQUE (name);
+
+ALTER TABLE Offer ALTER COLUMN description TYPE VARCHAR(500);
+
+ALTER TABLE Offer ADD COLUMN discount DECIMAL(5, 2) DEFAULT 0.00;
+
+ALTER TABLE Offer ALTER COLUMN discount TYPE INTEGER USING discount::INTEGER;
+
+-- ROLLBACK
+ALTER TABLE Airport DROP COLUMN latitude;
+ALTER TABLE Airport DROP COLUMN longitude;
+
+ALTER TABLE Airline DROP CONSTRAINT unique_airline_name;
+
+ALTER TABLE Offer ALTER COLUMN description TYPE TEXT;
+
+ALTER TABLE Offer ALTER COLUMN discount TYPE DECIMAL(5, 2) USING discount::DECIMAL(5, 2);
+
+ALTER TABLE Offer DROP COLUMN discount;
